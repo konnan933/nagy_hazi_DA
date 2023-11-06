@@ -1,4 +1,7 @@
+import pyconio
+
 def main():
-    pass
+    pyconio.clrscr()
+    print("hello")
 
 main()

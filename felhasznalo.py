@@ -26,7 +26,7 @@ class Felhasznalo:
         self.jelszo = titkositas(jelszo)
 
     def exportView(self):
-        return  f"{self.id};{self.nev};{self.jelszo}"
+        return  f"{self.id};{self.nev};{self.jelszo}\n"
 
 def titkositas(jelszo):
     return hashlib.md5(jelszo.encode()).hexdigest()
