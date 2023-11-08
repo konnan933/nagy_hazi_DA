@@ -5,7 +5,8 @@ import uuid
 
 class Felhasznalok:
     def __init__(self):
-        self.felhasznalo_tomb = self.felhasznalok_import()
+        self.felhasznalo_tomb = []
+        self.felhasznalok_import()
 
     def __str__(self):
         kiiratas= ""
@@ -32,10 +33,8 @@ class Felhasznalok:
             if nev == felhasznalo.getfelhasznaloNev():
                 self.felhasznalo_tomb.append(felhasznalo(self.idGeneration() ,nev, jelszo))
             else:
-                consoleKezeles.setErrorColor()
-                print("Ez a felhasználó név már foglalt, kérem adjon újjatt!")
-                consoleKezeles.setOutputColor()
-                self.addFelhasznalo()
+                consoleKezeles.sendErrorMessage("Ez a felhasználó név már foglalt, kérem adjon újjatt!")
+                self.addFelhasznalo
         
 
     def felhasznalok_export(self):
@@ -44,27 +43,24 @@ class Felhasznalok:
             file.write(felhasznalo.exportView())
         file.close()
   
-    def felhasznalok_import():
+    def felhasznalok_import(self):
         adatok= []
         file = open("felhasznalok.txt", "r", encoding="utf-8") # file név be van égetve más nem lehet
         sorok = file.readlines()
         for sor in sorok:
             stripped = sor.strip()
             splitted = stripped.split(";")
-            adatok.append(felhasznalo(splitted[0], splitted[1], splitted[2]))
+            adatok.append(felhasznalo.Felhasznalo(splitted[0], splitted[1], splitted[2]))
         file.close()
-        return adatok
+        self.felhasznalo_tomb = adatok
     
     def log_in(self):
-        
-
-        jelszo = input("Adja meg kérem a jelszót: ")
-        
         for felhasznalo in self.log_in_nev_input():
+            jelszo = input("Adja meg kérem a jelszót: ")
+            print(hashlib.md5(jelszo.encode()).hexdigest())
+            print(felhasznalo.getJelszo())
             if hashlib.md5(jelszo.encode()).hexdigest() == felhasznalo.getJelszo():
-                consoleKezeles.setConfirmColor()
-                print("Sikeres bejelentkezés")
-                consoleKezeles.setOutputColor()
+                consoleKezeles.sendConfirmMessage("Sikeres bejelentkezés")
                 return True
             else:
                 return False
@@ -79,9 +75,7 @@ class Felhasznalok:
                 eselyes_felhasznalok.append(felhasznalo)
 
         if(len(eselyes_felhasznalok) == 0):
-            consoleKezeles.setErrorColor()
-            print("Hibás felhasználó név!")
-            consoleKezeles.setOutputColor()
+            consoleKezeles.sendErrorMessage("Hibás felhasználó név!")
             self.log_in_nev_input()
         
         return eselyes_felhasznalok

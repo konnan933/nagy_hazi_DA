@@ -1,8 +1,7 @@
 import pyconio
+import consoleKezeles
 
 def main():
-    pyconio.textcolor(pyconio.BLACK)
-    pyconio.textbackground(pyconio.BLUE)
-    print("Hello world!")
+    consoleKezeles.bejelntkezes_folyamat()
 
 main()

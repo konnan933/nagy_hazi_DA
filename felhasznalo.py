@@ -5,7 +5,8 @@ class Felhasznalo:
     def __init__(self, id, felhasznaloNev, jelszo):
         self.id = id
         self.felhasznaloNev = felhasznaloNev
-        self.jelszo = titkositas(jelszo)
+        self.jelszo = "" 
+        self.setJelszo(jelszo)
 
     def __str__(self):
         return f"ID: {self.id} Név: {self.felhasznaloNev}, jelszó(titkósítva): {self.jelszo}"
@@ -23,7 +24,11 @@ class Felhasznalo:
         self.felhasznaloNev = felhasznaloNev
 
     def setJelszo(self, jelszo):
-        self.jelszo = titkositas(jelszo)
+
+        if len(jelszo) == 32:
+            self.jelszo = jelszo
+        else:
+            self.jelszo = titkositas(jelszo)
 
     def exportView(self):
         return  f"{self.id};{self.felhasznaloNev};{self.jelszo}\n"
