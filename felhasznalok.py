@@ -1,10 +1,11 @@
 import felhasznalo
+import consoleKezeles
 import hashlib
 import uuid
 
 class Felhasznalok:
     def __init__(self):
-        self.felhasznalo_tomb = felhasznalok_import()
+        self.felhasznalo_tomb = self.felhasznalok_import()
 
     def __str__(self):
         kiiratas= ""
@@ -24,10 +25,18 @@ class Felhasznalok:
         return new_id
     
     def addFelhasznalo(self):
-        nev = input("Adja meg kérem a nevét: ")
+        nev = input("Adja meg kérem a felhasználó nevét: ")
         jelszo = input("Adja meg kérem a jelszót: ")
 
-        self.felhasznalo_tomb.append(felhasznalo(self.idGeneration() ,nev, jelszo))
+        for felhasznalo in self.felhasznalo_tomb:
+            if nev == felhasznalo.getfelhasznaloNev():
+                self.felhasznalo_tomb.append(felhasznalo(self.idGeneration() ,nev, jelszo))
+            else:
+                consoleKezeles.setErrorColor()
+                print("Ez a felhasználó név már foglalt, kérem adjon újjatt!")
+                consoleKezeles.setOutputColor()
+                self.addFelhasznalo()
+        
 
     def felhasznalok_export(self):
         file = open("felhasznalok.txt", "w", encoding="utf-8") # file név be van égetve más nem lehet
@@ -51,11 +60,14 @@ class Felhasznalok:
 
         jelszo = input("Adja meg kérem a jelszót: ")
         
-        for felhasznalo in eselyes_felhasznalok:
+        for felhasznalo in self.log_in_nev_input():
             if hashlib.md5(jelszo.encode()).hexdigest() == felhasznalo.getJelszo():
+                consoleKezeles.setConfirmColor()
+                print("Sikeres bejelentkezés")
+                consoleKezeles.setOutputColor()
                 return True
             else:
-                pass
+                return False
         
     def log_in_nev_input(self):
         nev = input("Adja meg kérem a felhasználó nevét: ")
@@ -63,13 +75,17 @@ class Felhasznalok:
         eselyes_felhasznalok = []
 
         for felhasznalo in self.felhasznalo_tomb:
-            if felhasznalo.getNev() == nev:
+            if felhasznalo.getfelhasznaloNev() == nev:
                 eselyes_felhasznalok.append(felhasznalo)
 
         if(len(eselyes_felhasznalok) == 0):
-            return self.log_in_nev_input()
+            consoleKezeles.setErrorColor()
+            print("Hibás felhasználó név!")
+            consoleKezeles.setOutputColor()
+            self.log_in_nev_input()
         
         return eselyes_felhasznalok
-
+    
+    
 
 

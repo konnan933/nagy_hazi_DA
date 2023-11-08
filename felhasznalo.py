@@ -2,16 +2,16 @@
 import hashlib
 
 class Felhasznalo:
-    def __init__(self, id, nev, jelszo):
+    def __init__(self, id, felhasznaloNev, jelszo):
         self.id = id
-        self.nev = nev
+        self.felhasznaloNev = felhasznaloNev
         self.jelszo = titkositas(jelszo)
 
     def __str__(self):
-        return f"ID: {self.id} Név: {self.nev}, jelszó(titkósítva): {self.jelszo}"
+        return f"ID: {self.id} Név: {self.felhasznaloNev}, jelszó(titkósítva): {self.jelszo}"
     
-    def getNev(self):
-        return self.nev
+    def getfelhasznaloNev(self):
+        return self.felhasznaloNev
     
     def getId(self):
         return self.id
@@ -19,14 +19,14 @@ class Felhasznalo:
     def getJelszo(self):
         return self.jelszo
     
-    def setNev(self, nev):
-        self.nev = nev
+    def setNev(self, felhasznaloNev):
+        self.felhasznaloNev = felhasznaloNev
 
     def setJelszo(self, jelszo):
         self.jelszo = titkositas(jelszo)
 
     def exportView(self):
-        return  f"{self.id};{self.nev};{self.jelszo}\n"
+        return  f"{self.id};{self.felhasznaloNev};{self.jelszo}\n"
 
 def titkositas(jelszo):
     return hashlib.md5(jelszo.encode()).hexdigest()

@@ -1,7 +1,8 @@
 import pyconio
 
 def main():
-    pyconio.clrscr()
-    print("hello")
+    pyconio.textcolor(pyconio.BLACK)
+    pyconio.textbackground(pyconio.BLUE)
+    print("Hello world!")
 
 main()
