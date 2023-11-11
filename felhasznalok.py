@@ -54,15 +54,14 @@ class Felhasznalok:
         file.close()
         self.felhasznalo_tomb = adatok
     
-    def log_in(self):
-        for felhasznalo in self.log_in_nev_input():
+    def log_in(self, felhasznalok):
+        for felhasznalo in felhasznalok:
             jelszo = input("Adja meg kérem a jelszót: ")
-            print(hashlib.md5(jelszo.encode()).hexdigest())
-            print(felhasznalo.getJelszo())
             if hashlib.md5(jelszo.encode()).hexdigest() == felhasznalo.getJelszo():
                 consoleKezeles.sendConfirmMessage("Sikeres bejelentkezés")
                 return True
             else:
+                consoleKezeles.sendErrorMessage("Hibás jelszó!")
                 return False
         
     def log_in_nev_input(self):
@@ -76,7 +75,7 @@ class Felhasznalok:
 
         if(len(eselyes_felhasznalok) == 0):
             consoleKezeles.sendErrorMessage("Hibás felhasználó név!")
-            self.log_in_nev_input()
+            eselyes_felhasznalok = self.log_in_nev_input()
         
         return eselyes_felhasznalok
     
