@@ -26,16 +26,32 @@ class Felhasznalok:
         return new_id
     
     def addFelhasznalo(self):
-        nev = input("Adja meg kérem a felhasználó nevét: ")
-        jelszo = input("Adja meg kérem a jelszót: ")
+       
+        self.felhasznalo_tomb.append(felhasznalo.Felhasznalo(self.idGeneration() ,self.inputNev(), self.inputJelszo()))
+                
 
-        for felhasznalo in self.felhasznalo_tomb:
-            if nev == felhasznalo.getfelhasznaloNev():
-                self.felhasznalo_tomb.append(felhasznalo(self.idGeneration() ,nev, jelszo))
-            else:
-                consoleKezeles.sendErrorMessage("Ez a felhasználó név már foglalt, kérem adjon újjatt!")
-                self.addFelhasznalo
+    def inputNev(self):
+        nev = input("Kérem adja meg az felhasználó nevét:")
+        while nev == "":
+            consoleKezeles.sendErrorMessage("Nem lehet üres a név, adjon újjat!")
+            nev = input("Kérem adja meg az felhasználó nevét:")
+ 
+        nevek = [felhasznalo.getfelhasznaloNev() for felhasznalo in self.felhasznalo_tomb]
         
+        while nev in nevek:
+            consoleKezeles.sendErrorMessage("Ez a felhasználó név már foglalt, kérem adjon újjatt!")
+            nev = input("Kérem adja meg az felhasználó nevét:")
+
+        return nev
+        
+    def inputJelszo(self):
+        jelszo = input("Kérem adja meg jelszavát:")
+        while jelszo == "":
+            consoleKezeles.sendErrorMessage("Nem lehet üres a jelszava, adjon újjat!")
+            jelszo = input("Kérem adja meg jelszavát:")
+
+        return jelszo
+
 
     def felhasznalok_export(self):
         file = open("felhasznalok.txt", "w", encoding="utf-8") # file név be van égetve más nem lehet

@@ -5,11 +5,10 @@ class Felhasznalo:
     def __init__(self, id, felhasznaloNev, jelszo):
         self.id = id
         self.felhasznaloNev = felhasznaloNev
-        self.jelszo = "" 
         self.setJelszo(jelszo)
 
     def __str__(self):
-        return f"ID: {self.getId()} Név: {self.getfelhasznaloNev()}, jelszó(titkósítva): {self.getJelszo()}"
+        return f"ID: {self.getId()}, Név: {self.getfelhasznaloNev()}, jelszó(titkósítva): {self.getJelszo()}"
     
     def getfelhasznaloNev(self):
         return self.felhasznaloNev
