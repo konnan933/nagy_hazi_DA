@@ -8,6 +8,13 @@ def sendErrorMessage(text):
     setOutputColor()
     print("")
 
+def sendImportantMessage(text):
+    pyconio.textcolor(pyconio.BLACK)
+    pyconio.textbackground(pyconio.YELLOW)
+    print(text, end="")
+    setOutputColor()
+    print("")
+
 def setOutputColor():
     pyconio.textcolor(pyconio.BLACK)
     pyconio.textbackground(pyconio.BLUE)

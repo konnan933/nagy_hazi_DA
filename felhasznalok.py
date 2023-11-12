@@ -2,6 +2,7 @@ import felhasznalo
 import consoleKezeles
 import hashlib
 import uuid
+import re
 
 class Felhasznalok:
     def __init__(self):
@@ -45,9 +46,14 @@ class Felhasznalok:
         return nev
         
     def inputJelszo(self):
+        consoleKezeles.sendImportantMessage("A jelszónak kell nagybetüt, számot tartalmaznia és legalább 8 karakter hosszúnak kell lenni!")
         jelszo = input("Kérem adja meg jelszavát:")
         while jelszo == "":
             consoleKezeles.sendErrorMessage("Nem lehet üres a jelszava, adjon újjat!")
+            jelszo = input("Kérem adja meg jelszavát:")
+
+        while None == re.fullmatch(r'^(?=.*[A-Z])(?=.*\d).{8,}$', jelszo):
+            consoleKezeles.sendImportantMessage("A jelszónak kell nagybetüt, számot és legalább 8 karaktert hosszúnak kell lenni!")
             jelszo = input("Kérem adja meg jelszavát:")
 
         return jelszo
