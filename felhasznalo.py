@@ -9,7 +9,7 @@ class Felhasznalo:
         self.setJelszo(jelszo)
 
     def __str__(self):
-        return f"ID: {self.id} Név: {self.felhasznaloNev}, jelszó(titkósítva): {self.jelszo}"
+        return f"ID: {self.getId()} Név: {self.getfelhasznaloNev()}, jelszó(titkósítva): {self.getJelszo()}"
     
     def getfelhasznaloNev(self):
         return self.felhasznaloNev
