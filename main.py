@@ -6,9 +6,10 @@ import felhasznalok
 import esemenyek
 
 def main():
-    felhasznalok_1 = felhasznalok.Felhasznalok()
-    felhasznalok_1.addFelhasznalo()
-    print(str(felhasznalok_1))
-    #consoleKezeles.bejelntkezes_folyamat()
+    consoleKezeles.setOutputColor()
+    pyconio.rawmode()
+    fiokok = felhasznalok.Felhasznalok()
+    consoleKezeles.bejenkezes_or_add_felhasznalo(fiokok)
+
 
 main()

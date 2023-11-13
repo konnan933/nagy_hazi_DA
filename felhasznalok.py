@@ -32,16 +32,16 @@ class Felhasznalok:
                 
 
     def inputNev(self):
-        nev = input("Kérem adja meg az felhasználó nevét:")
+        nev = input("Kérem adja meg a felhasználó nevét:")
         while nev == "":
             consoleKezeles.sendErrorMessage("Nem lehet üres a név, adjon újjat!")
-            nev = input("Kérem adja meg az felhasználó nevét:")
+            nev = input("Kérem adja meg a felhasználó nevét:")
  
         nevek = [felhasznalo.getfelhasznaloNev() for felhasznalo in self.felhasznalo_tomb]
         
         while nev in nevek:
             consoleKezeles.sendErrorMessage("Ez a felhasználó név már foglalt, kérem adjon újjatt!")
-            nev = input("Kérem adja meg az felhasználó nevét:")
+            nev = input("Kérem adja meg a felhasználó nevét:")
 
         return nev
         
@@ -81,10 +81,10 @@ class Felhasznalok:
             jelszo = input("Adja meg kérem a jelszót: ")
             if hashlib.md5(jelszo.encode()).hexdigest() == felhasznalo.getJelszo():
                 consoleKezeles.sendConfirmMessage("Sikeres bejelentkezés")
-                return True
+                return felhasznalo
             else:
                 consoleKezeles.sendErrorMessage("Hibás jelszó!")
-                return False
+                return None
         
     def log_in_nev_input(self):
         nev = input("Adja meg kérem a felhasználó nevét: ")
