@@ -7,9 +7,8 @@ import esemenyek
 
 def main():
     consoleKezeles.setOutputColor()
-    pyconio.rawmode()
     fiokok = felhasznalok.Felhasznalok()
-    consoleKezeles.bejenkezes_or_add_felhasznalo(fiokok)
+    bejelentkezett_fiok = consoleKezeles.bejenkezes_or_add_felhasznalo(fiokok)
 
 
 main()

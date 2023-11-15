@@ -29,6 +29,8 @@ class Felhasznalok:
     def addFelhasznalo(self):
        
         self.felhasznalo_tomb.append(felhasznalo.Felhasznalo(self.idGeneration() ,self.inputNev(), self.inputJelszo()))
+        consoleKezeles.sendConfirmMessage("Sikeresen létre hozta az új foikját!\nMost jelentkezzen be!")
+        self.felhasznalok_export()
                 
 
     def inputNev(self):

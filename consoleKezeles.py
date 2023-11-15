@@ -35,9 +35,9 @@ def bejelntkezes_folyamat(fiokok):
 
 def bejenkezes_or_add_felhasznalo(fiokok):
     valasz = input(f"Bejelentkezéshez  (adja meg az 1-est)\nÚj fiók lértehozásához (adja meg az 2-est)")
-        
-    while valasz != 1 and valasz != 2:
-        sendErrorMessage("Rossz billenytyűzetet nyomott meg")
+
+    while valasz != "1" and valasz != "2":
+        sendErrorMessage("Rossz számot adott meg")
         valasz = input(f"Bejelentkezéshez  (adja meg az 1-est)\nÚj fiók lértehozásához (adja meg az 2-est)")
 
     if(valasz == "1"):
