@@ -1,10 +1,10 @@
 import uuid
-import esemeny
+from esemeny import Esemeny
 import consoleKezeles
 from datetime import datetime
 class Esemenyek:
-    def __init__(self):
-        self.esemeny_tomb = []
+    def __init__(self, esemeny_tomb = []):
+        self.esemeny_tomb = esemeny_tomb
         self.esemenyek_import()
 
     def __str__(self):
@@ -25,7 +25,7 @@ class Esemenyek:
         return new_id
     
     def addEsemeny(self, felhasznaloId):
-        self.esemeny_tomb.append(esemeny.Esemeny(self.idGeneration(), felhasznaloId, self.inputNev(), self.inputDatum(), self.inputHely(), self.inputMegjegyzes()))
+        self.esemeny_tomb.append(Esemeny(self.idGeneration(), felhasznaloId, self.inputNev(), self.inputDatum(), self.inputHely(), self.inputMegjegyzes()))
 
     def inputNev(self):
         nev = input("Kérem adja meg az esemény nevét:")
@@ -63,15 +63,28 @@ class Esemenyek:
         file.close()
   
     def esemenyek_import(self):
-        adatok= []
-        file = open("esemenyek.txt", "r", encoding="utf-8") # file név be van égetve más nem lehet
-        sorok = file.readlines()
-        for sor in sorok:
-            stripped = sor.strip()
-            splitted = stripped.split(";")
-            adatok.append(esemeny.Esemeny(splitted[0], splitted[1], splitted[2], self.datum_string_to_datetime(splitted[3]), splitted[4], splitted[5] ))
-        file.close()
-        self.esemeny_tomb = adatok
-
+        if(len(self.esemeny_tomb) == 0):
+            adatok= []
+            file = open("esemenyek.txt", "r", encoding="utf-8") # file név be van égetve más nem lehet
+            sorok = file.readlines()
+            for sor in sorok:
+                stripped = sor.strip()
+                splitted = stripped.split(";")
+                adatok.append(Esemeny(splitted[0], splitted[1], splitted[2], self.datum_string_to_datetime(splitted[3]), splitted[4], splitted[5] ))
+            file.close()
+            self.esemeny_tomb = adatok
     def datum_string_to_datetime(self, datum_string):
         return datetime.strptime(datum_string, "%Y-%m-%d %H:%M:%S")
+    
+    def sort_by_datum(self):
+        return sorted(self.esemeny_tomb, key=lambda r: r.datum)
+    
+    def felhasznalo_esemenyei(self, fiok_id):
+     
+        fiok_esemenyei = []
+        for esemeny in self.esemeny_tomb:
+            if esemeny.getId() == fiok_id:
+                fiok_esemenyei.append(esemeny)
+
+        return fiok_esemenyei
+
