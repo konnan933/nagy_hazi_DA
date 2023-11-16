@@ -3,15 +3,21 @@ from esemeny import Esemeny
 import consoleKezeles
 from datetime import datetime
 class Esemenyek:
-    def __init__(self, esemeny_tomb = []):
-        self.esemeny_tomb = esemeny_tomb
+    def __init__(self):
+        self.esemeny_tomb = []
+        self.fiok_esemenyei = []
         self.esemenyek_import()
 
-    def __str__(self):
+    def __str__(self, fiok = ""):
         kiiratas= ""
-        for esemeny in self.esemeny_tomb:
-            kiiratas  += str(esemeny) + "\n"
-        return kiiratas
+        if(fiok == "fiok"):
+            for esemeny in self.fiok_esemenyei:
+                kiiratas  += str(esemeny) + "\n"
+            return kiiratas
+        else:
+            for esemeny in self.esemeny_tomb:
+                kiiratas  += str(esemeny) + "\n"
+            return kiiratas
     
     def idGeneration(self):
         new_id = uuid.uuid4()
@@ -25,7 +31,12 @@ class Esemenyek:
         return new_id
     
     def addEsemeny(self, felhasznaloId):
-        self.esemeny_tomb.append(Esemeny(self.idGeneration(), felhasznaloId, self.inputNev(), self.inputDatum(), self.inputHely(), self.inputMegjegyzes()))
+        nev = self.inputNev()
+        datum = self.inputDatum()
+        hely = self.inputHely()
+        megjegyzes = self.inputMegjegyzes()
+        self.esemeny_tomb.append(Esemeny(self.idGeneration(), felhasznaloId, nev, datum, hely, megjegyzes))
+        self.fiok_esemenyei.append(Esemeny(self.idGeneration(), felhasznaloId, nev, datum, hely, megjegyzes))
 
     def inputNev(self):
         nev = input("Kérem adja meg az esemény nevét:")
@@ -77,14 +88,11 @@ class Esemenyek:
         return datetime.strptime(datum_string, "%Y-%m-%d %H:%M:%S")
     
     def sort_by_datum(self):
-        return sorted(self.esemeny_tomb, key=lambda r: r.datum)
+        return sorted(self.fiok_esemenyei, key=lambda r: r.datum)
     
-    def felhasznalo_esemenyei(self, fiok_id):
-     
-        fiok_esemenyei = []
+    def getFelhasznalo_esemenyei(self, fiok_id):
         for esemeny in self.esemeny_tomb:
-            if esemeny.getId() == fiok_id:
-                fiok_esemenyei.append(esemeny)
+            if esemeny.getFelhasznaloId() == fiok_id:
+                self.fiok_esemenyei.append(esemeny)
 
-        return fiok_esemenyei
 

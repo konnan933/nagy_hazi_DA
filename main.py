@@ -10,9 +10,9 @@ def main():
     fiokok = Felhasznalok()
     bejelentkezett_fiok = consoleKezeles.bejenkezes_or_add_felhasznalo(fiokok)
     osszes_esemeny = Esemenyek()
-    fiok_esemnyei = Esemenyek(osszes_esemeny.felhasznalo_esemenyei(bejelentkezett_fiok.getId()))
+    osszes_esemeny.getFelhasznalo_esemenyei(bejelentkezett_fiok.getId())
     valasz = consoleKezeles.esemeny_konzol_valasztasok()
-    consoleKezeles.esemeny_konzol_eldontes(valasz, fiok_esemnyei)
+    consoleKezeles.esemeny_konzol_eldontes(valasz, osszes_esemeny)
     
 
 

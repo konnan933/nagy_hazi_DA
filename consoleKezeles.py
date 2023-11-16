@@ -97,4 +97,5 @@ def esemeny_megjelenites_valasztasok(esemenyek):
         for esemeny in esemenyek.sort_by_datum():
             print(str(esemeny))
     elif(valasz == "2"):
-        print(str(esemenyek))
+        for esemeny in esemenyek.fiok_esemenyei:
+            print(str(esemeny))
