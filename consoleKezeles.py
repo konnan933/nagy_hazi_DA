@@ -15,6 +15,13 @@ def sendImportantMessage(text):
     setOutputColor()
     print("")
 
+def line_separator():
+    pyconio.textcolor(pyconio.BLACK)
+    pyconio.textbackground(pyconio.LIGHTGRAY)
+    print("                 ", end="")
+    setOutputColor()
+    print("")
+
 def setOutputColor():
     pyconio.textcolor(pyconio.BLACK)
     pyconio.textbackground(pyconio.BLUE)
@@ -55,39 +62,66 @@ def fiok_esmenyei(fiok_id):
     return esemenyek    
 
 def esemeny_konzol_valasztasok():
+    line_separator()
     input_lista = ["1", "2", "3", "4", "5", "9"]
     valasz = input("Eseményeim megnézése (adja meg az 1-est)\n"+
                    "Új esemény hozzá adása (adja meg az 2-est)\n"+
-                   "Esemény szerkeztése (adja meg az 3-est)"+
+                   "Esemény szerkeztése (adja meg az 3-ast)\n"+
                    "Esemény törlése (adja meg az 4-est)\n"+
-                   "Kijelentkezés (adja meg az 5-est)\n"+
+                   "Kijelentkezés (adja meg az 5-öst)\n"+
                    "Kilépés (adja meg az 9-est)")
     while valasz not in input_lista:
         sendErrorMessage("Rossz számot adott meg")
         valasz = input("Eseményeim megnézése (adja meg az 1-est)\n"+
                    "Új esemény hozzá adása (adja meg az 2-est)\n"+
-                   "Esemény szerkeztése (adja meg az 3-est)\n"+
+                   "Esemény szerkeztése (adja meg az 3-ast)\n"+
                    "Esemény törlése (adja meg az 4-est)\n"+
-                   "Kijelentkezés (adja meg az 5-est)\n"+
+                   "Kijelentkezés (adja meg az 5-öst)\n"+
                    "Kilépés (adja meg az 9-est)")
     return valasz
 
-def esemeny_konzol_eldontes(valasz,esemenyek):
+def esemeny_konzol_eldontes(valasz, esemenyek, fiok_id):
+    line_separator()
     if(valasz == "1"):
         esemeny_megjelenites_valasztasok(esemenyek)
     elif(valasz == "2"):
-        esemenyek.addEsemeny()
+        esemenyek.addEsemeny(fiok_id)
     elif(valasz == "3"):
-        pass
+        esemeny_szerkeztes_valsztasok(esemenyek,esemenyek.show_by_index_fiok())
     elif(valasz == "4"):
         esemenyek.deleteEsemeny(esemenyek.show_by_index_fiok())
     elif(valasz == "5"):
-        pass
+        sendConfirmMessage("Sikeres kijelenkezés!")
     elif(valasz == "9"): 
-        pass
+        sendConfirmMessage("Sikereses kilépett!")
+
+
+def esemeny_szerkeztes_valsztasok(esemenyek, valasztott_index):
+    input_lista = ["1", "2", "3", "4"]
+
+    valasz = input("Esemény  név szerkeztése (adja meg az 1-est)\n"+
+            "Esemény  dátum szerkeztése (adja meg az 2-est)\n"+
+            "Esemény  hely szerkeztése (adja meg az 3-ast)\n"+
+            "Esemény  megjegyzés szerkeztése (adja meg az 4-est)")
+    
+    while valasz not in input_lista:
+        sendErrorMessage("Rossz számot adott meg")
+        valasz = input("Esemény  név szerkeztése (adja meg az 1-est)\n"+
+                    "Esemény  dátum szerkeztése (adja meg az 2-est)\n"+
+                    "Esemény  hely szerkeztése (adja meg az 3-ast)\n"+
+                    "Esemény  megjegyzés szerkeztése (adja meg az 4-est)")
+    
+    if(valasz == "1"):
+        esemenyek.fiok_esemenyei[valasztott_index].setNev(esemenyek.inputNev())
+    elif(valasz == "2"):
+        esemenyek.fiok_esemenyei[valasztott_index].setDatum(esemenyek.inputDatum())
+    elif(valasz == "3"):
+        esemenyek.fiok_esemenyei[valasztott_index].setHely(esemenyek.inputHely())
+    elif(valasz == "4"):
+        esemenyek.fiok_esemenyei[valasztott_index].setMegjegyzes(esemenyek.inputMegjegyzes())
 
 def esemeny_megjelenites_valasztasok(esemenyek):
-    valasz = input(f"Idő szerinti sorrendben megnézni (adja meg az 1-est)\nFelvett sorrendben megnézni (adja meg az 2-est)\nNév alapján keresés (adja meg az 3-est)")
+    valasz = input(f"Idő szerinti sorrendben megnézni (adja meg az 1-est)\nFelvett sorrendben megnézni (adja meg az 2-est)\nNév alapján keresés (adja meg az 3-ast)")
 
     while valasz != "1" and valasz != "2" and valasz != "3":
         sendErrorMessage("Rossz számot adott meg")

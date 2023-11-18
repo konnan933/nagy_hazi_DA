@@ -75,7 +75,7 @@ class Esemenyek:
                 datum = self.datum_string_to_datetime(datum)
                 return datum
             except ValueError:
-                print("Hibás formátum! Kérlek, próbáld újra.")
+                consoleKezeles.sendErrorMessage("Hibás formátum! Kérlek, próbáld újra.")
 
     def esemenyek_export(self):
         file = open("esemenyek.txt", "w", encoding="utf-8") # file név be van égetve más nem lehet
@@ -113,9 +113,7 @@ class Esemenyek:
             try:
                 valasztott_index = int(input("Irja be az esemény elött lévő számot: "))
 
-                print(1 <= valasztott_index < len(self.fiok_esemenyei))
-
-                while not valasztott_index in range(1,len(self.fiok_esemenyei)):
+                while not valasztott_index in range(1,len(self.fiok_esemenyei)+1):
                     consoleKezeles.sendErrorMessage("Rossz számot adott meg")
                     valasztott_index = int(input("Irja be az esemény elött lévő számot: "))
                 return valasztott_index-1 
@@ -123,9 +121,6 @@ class Esemenyek:
             except ValueError:
                 consoleKezeles.sendErrorMessage("Nem számot adott meg")
                 continue
-                
-                
-        
 
 
     def seach_by_nev_fiok(self):
