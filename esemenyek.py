@@ -4,7 +4,7 @@ import consoleKezeles
 from datetime import datetime
 class Esemenyek:
     def __init__(self):
-        self.esemeny_tomb = []
+        self.osszes_esemeny = []
         self.fiok_esemenyei = []
         self.esemenyek_import()
 
@@ -15,7 +15,7 @@ class Esemenyek:
                 kiiratas  += str(esemeny) + "\n"
             return kiiratas
         else:
-            for esemeny in self.esemeny_tomb:
+            for esemeny in self.osszes_esemeny:
                 kiiratas  += str(esemeny) + "\n"
             return kiiratas
     
@@ -23,7 +23,7 @@ class Esemenyek:
         new_id = uuid.uuid4()
         taken_id = True
         while(taken_id):
-            if(new_id in [esemeny.getId() for esemeny in self.esemeny_tomb]):
+            if(new_id in [esemeny.getId() for esemeny in self.osszes_esemeny]):
                 new_id = uuid.uuid4()
             else:
                 taken_id = False
@@ -35,8 +35,18 @@ class Esemenyek:
         datum = self.inputDatum()
         hely = self.inputHely()
         megjegyzes = self.inputMegjegyzes()
-        self.esemeny_tomb.append(Esemeny(self.idGeneration(), felhasznaloId, nev, datum, hely, megjegyzes))
+        self.osszes_esemeny.append(Esemeny(self.idGeneration(), felhasznaloId, nev, datum, hely, megjegyzes))
         self.fiok_esemenyei.append(Esemeny(self.idGeneration(), felhasznaloId, nev, datum, hely, megjegyzes))
+
+    def deleteEsemeny(self, kivalasztott_index):
+        keresendo = self.fiok_esemenyei[kivalasztott_index].getId()
+        i = 0
+        while i < len(self.osszes_esemeny) and not (self.osszes_esemeny[i].getId() == keresendo):
+            i += 1
+        index_osszes = i
+
+        self.osszes_esemeny.pop(index_osszes)
+        self.fiok_esemenyei.pop(kivalasztott_index) # azért nem keressük ennek az indexét mert show_by_index_fiok függvény ebböl keresi ki
 
     def inputNev(self):
         nev = input("Kérem adja meg az esemény nevét:")
@@ -69,12 +79,12 @@ class Esemenyek:
 
     def esemenyek_export(self):
         file = open("esemenyek.txt", "w", encoding="utf-8") # file név be van égetve más nem lehet
-        for esemeny in self.esemeny_tomb:
+        for esemeny in self.osszes_esemeny:
             file.write(esemeny.exportView())
         file.close()
   
     def esemenyek_import(self):
-        if(len(self.esemeny_tomb) == 0):
+        if(len(self.osszes_esemeny) == 0):
             adatok= []
             file = open("esemenyek.txt", "r", encoding="utf-8") # file név be van égetve más nem lehet
             sorok = file.readlines()
@@ -83,7 +93,7 @@ class Esemenyek:
                 splitted = stripped.split(";")
                 adatok.append(Esemeny(splitted[0], splitted[1], splitted[2], self.datum_string_to_datetime(splitted[3]), splitted[4], splitted[5] ))
             file.close()
-            self.esemeny_tomb = adatok
+            self.osszes_esemeny = adatok
     def datum_string_to_datetime(self, datum_string):
         return datetime.strptime(datum_string, "%Y-%m-%d %H:%M:%S")
     
@@ -91,8 +101,44 @@ class Esemenyek:
         return sorted(self.fiok_esemenyei, key=lambda r: r.datum)
     
     def getFelhasznalo_esemenyei(self, fiok_id):
-        for esemeny in self.esemeny_tomb:
+        for esemeny in self.osszes_esemeny:
             if esemeny.getFelhasznaloId() == fiok_id:
                 self.fiok_esemenyei.append(esemeny)
 
+    def show_by_index_fiok(self):
+        for i in range(0, len(self.fiok_esemenyei)):
+            print(f"{i+1}. {str(self.fiok_esemenyei[i])}")
+
+        while True:
+            try:
+                valasztott_index = int(input("Irja be az esemény elött lévő számot: "))
+
+                print(1 <= valasztott_index < len(self.fiok_esemenyei))
+
+                while not valasztott_index in range(1,len(self.fiok_esemenyei)):
+                    consoleKezeles.sendErrorMessage("Rossz számot adott meg")
+                    valasztott_index = int(input("Irja be az esemény elött lévő számot: "))
+                return valasztott_index-1 
+
+            except ValueError:
+                consoleKezeles.sendErrorMessage("Nem számot adott meg")
+                continue
+                
+                
+        
+
+
+    def seach_by_nev_fiok(self):
+        nev = input("Adja meg milyen név alapján keressünk!")
+
+        while nev == "":
+            consoleKezeles.sendErrorMessage("Nem lehet üres a hely, adjon újjat!")
+            nev = input("Adja meg milyen név alapján keressünk!")
+
+
+        nev_talalatok = ""
+        for esemeny in self.fiok_esemenyei:
+            if nev.lower() in esemeny.getNev().lower():
+                nev_talalatok += str(esemeny)+"\n"
+        return nev_talalatok if len(nev_talalatok) != 0 else "Nincs ilyen nevü esemény"
 
