@@ -56,7 +56,7 @@ class Felhasznalok:
 
         while None == re.fullmatch(r'^(?=.*[A-Z])(?=.*\d).{8,}$', jelszo):
             consoleKezeles.sendImportantMessage("A jelszónak kell nagybetüt, számot és legalább 8 karaktert hosszúnak kell lenni!")
-            jelszo = input("Kérem adja meg jelszavát:")
+            jelszo = input("Kérem adja meg jelszavát:") 
 
         return jelszo
 

@@ -8,16 +8,11 @@ class Esemenyek:
         self.fiok_esemenyei = []
         self.esemenyek_import()
 
-    def __str__(self, fiok = ""):
+    def __str__(self):
         kiiratas= ""
-        if(fiok == "fiok"):
-            for esemeny in self.fiok_esemenyei:
-                kiiratas  += str(esemeny) + "\n"
-            return kiiratas
-        else:
-            for esemeny in self.osszes_esemeny:
-                kiiratas  += str(esemeny) + "\n"
-            return kiiratas
+        for esemeny in self.osszes_esemeny:
+            kiiratas  += str(esemeny) + "\n"
+        return kiiratas
     
     def idGeneration(self):
         new_id = uuid.uuid4()
@@ -82,6 +77,12 @@ class Esemenyek:
         for esemeny in self.osszes_esemeny:
             file.write(esemeny.exportView())
         file.close()
+
+    def fiok_esemenyek_export(self, fajl_nev):
+        file = open(fajl_nev+".txt", "w", encoding="utf-8") # file név be van égetve más nem lehet
+        for esemeny in self.fiok_esemenyei:
+            file.write(esemeny.exportView())
+        file.close()
   
     def esemenyek_import(self):
         if(len(self.osszes_esemeny) == 0):
@@ -116,6 +117,7 @@ class Esemenyek:
                 while not valasztott_index in range(1,len(self.fiok_esemenyei)+1):
                     consoleKezeles.sendErrorMessage("Rossz számot adott meg")
                     valasztott_index = int(input("Irja be az esemény elött lévő számot: "))
+                    consoleKezeles.line_separator()
                 return valasztott_index-1 
 
             except ValueError:
