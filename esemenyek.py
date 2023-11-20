@@ -26,12 +26,13 @@ class Esemenyek:
         return new_id
     
     def addEsemeny(self, felhasznaloId):
+        id = self.idGeneration()
         nev = self.inputNev()
         datum = self.inputDatum()
         hely = self.inputHely()
         megjegyzes = self.inputMegjegyzes()
-        self.osszes_esemeny.append(Esemeny(self.idGeneration(), felhasznaloId, nev, datum, hely, megjegyzes))
-        self.fiok_esemenyei.append(Esemeny(self.idGeneration(), felhasznaloId, nev, datum, hely, megjegyzes))
+        self.osszes_esemeny.append(Esemeny(id, felhasznaloId, nev, datum, hely, megjegyzes))
+        self.fiok_esemenyei.append(Esemeny(id, felhasznaloId, nev, datum, hely, megjegyzes))
 
     def deleteEsemeny(self, kivalasztott_index):
         keresendo = self.fiok_esemenyei[kivalasztott_index].getId()
@@ -39,7 +40,6 @@ class Esemenyek:
         while i < len(self.osszes_esemeny) and not (self.osszes_esemeny[i].getId() == keresendo):
             i += 1
         index_osszes = i
-
         self.osszes_esemeny.pop(index_osszes)
         self.fiok_esemenyei.pop(kivalasztott_index) # azért nem keressük ennek az indexét mert show_by_index_fiok függvény ebböl keresi ki
 
@@ -132,7 +132,7 @@ class Esemenyek:
             consoleKezeles.sendErrorMessage("Nem lehet üres a hely, adjon újjat!")
             nev = input("Adja meg milyen név alapján keressünk!")
 
-
+        consoleKezeles.sendImportantMessage(f"A(Z) {nev} név alapján talált események:")
         nev_talalatok = ""
         for esemeny in self.fiok_esemenyei:
             if nev.lower() in esemeny.getNev().lower():

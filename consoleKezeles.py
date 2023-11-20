@@ -57,7 +57,9 @@ def bejenkezes_or_add_felhasznalo(fiokok):
         fiokok.addFelhasznalo()
         return bejelntkezes_folyamat(fiokok)
     elif(valasz == "9"):
-        return ""
+        line_separator()
+        sendConfirmMessage("Sikeresen kilépett!")
+        return None
     
 
 
@@ -104,7 +106,7 @@ def esemeny_konzol_eldontes(valasz, esemenyek, fiok_id):
     elif(valasz == "6"):
         sendConfirmMessage("Sikeres kijelenkezés!")
     elif(valasz == "9"): 
-        sendConfirmMessage("Sikereses kilépett!")
+        sendConfirmMessage("Sikeresen kilépett!")
 
 def foik_export_valasztas(esemenyek):
     fajl_nev = input("Kérem adja meg a fájl nevet! (kiterjesztést nem kell megadni) ")
