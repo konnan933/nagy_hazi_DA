@@ -157,7 +157,7 @@ class Esemenyek:
                 continue
 
 
-    def seach_by_nev_fiok(self):
+    def search_by_nev_fiok(self):
         nev = input("Adja meg milyen név alapján keressünk!")
 
         while nev == "":
@@ -170,4 +170,28 @@ class Esemenyek:
             if nev.lower() in esemeny.getNev().lower():
                 nev_talalatok += str(esemeny)+"\n"
         return nev_talalatok if len(nev_talalatok) != 0 else "Nincs ilyen nevü esemény"
+    
+    def search_by_week_fiok(self, ev, het_szam):
+        ez_ev_esemenyek = []
+        for esemeny in self.fiok_esemenyei:
+            if esemeny.datum.isocalendar()[1] == het_szam and ev == esemeny.datum.year:
+                ez_ev_esemenyek.append(esemeny)
+
+        return ez_ev_esemenyek
+    
+    def search_by_month_fiok(self, ev, honap_szam):
+        ez_ev_esemenyek = []
+        for esemeny in self.fiok_esemenyei:
+            if esemeny.datum.month == honap_szam and ev == esemeny.datum.year:
+                ez_ev_esemenyek.append(esemeny)
+
+        return ez_ev_esemenyek
+    
+    def search_by_day_fiok(self, ev, honap_szam, nap):
+        ez_ev_esemenyek = []
+        for esemeny in self.fiok_esemenyei:
+            if esemeny.datum.month == honap_szam and ev == esemeny.datum.year and esemeny.datum.day == nap:
+                ez_ev_esemenyek.append(esemeny)
+
+        return ez_ev_esemenyek
 
