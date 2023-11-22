@@ -2,6 +2,7 @@ import uuid
 from esemeny import Esemeny
 import consoleKezeles
 from datetime import datetime
+from hely import Hely
 class Esemenyek:
     def __init__(self):
         self.osszes_esemeny = []
@@ -51,11 +52,41 @@ class Esemenyek:
         return nev
     
     def inputHely(self):
-        hely = input("Kérem adja meg az esemény helyét:")
-        while hely == "":
-            consoleKezeles.sendErrorMessage("Nem lehet üres a hely, adjon újjat!")
-            hely = input("Kérem adja meg az esemény helyét:")
-        return hely
+        return Hely(self.inputHelyISzam(), self.inputHelyVaros(), self.inputHelyUtca(), self.inputHelyHazSzam())
+
+    def inputHelyVaros(self):
+        varos = input("Kérem adja meg a város nevét:")
+        while varos == "":
+            consoleKezeles.sendErrorMessage("Nem lehet üres a város, adjon újjat!")
+            varos = input("Kérem adja meg a város nevét:")
+        return varos
+
+    def inputHelyISzam(self):
+        
+        while True:
+            try:
+                iSzam = int(input("Kérem adja meg az irányító számot:"))
+                while len(str(iSzam)) != 4:                    
+                    consoleKezeles.sendErrorMessage("Az irányító szám 4db számbol áll.")
+                    iSzam = int(input("Kérem adja meg az irányító számot:"))
+                return iSzam
+            except ValueError:
+                consoleKezeles.sendErrorMessage("Nem lehet karakter az írányító számban.")
+                continue
+    
+    def inputHelyUtca(self):
+        utca = input("Kérem adja meg az utca nevét:")
+        while utca == "":
+            consoleKezeles.sendErrorMessage("Nem lehet üres az utca neve, adjon újjat!")
+            utca = input("Kérem adja meg az utca nevét:")
+        return utca
+    
+    def inputHelyHazSzam(self):
+        hazSzam = input("Kérem adja meg a ház számot:")
+        while hazSzam == "":
+            consoleKezeles.sendErrorMessage("Nem lehet üres a ház szám, adjon újjat!")
+            hazSzam = input("Kérem adja meg a ház számot:")
+        return hazSzam
     
     def inputMegjegyzes(self):
         megjegyzest = input("Kérem adja az eseményhez megjegyzést(nem kötelező):")
@@ -92,7 +123,8 @@ class Esemenyek:
             for sor in sorok:
                 stripped = sor.strip()
                 splitted = stripped.split(";")
-                adatok.append(Esemeny(splitted[0], splitted[1], splitted[2], self.datum_string_to_datetime(splitted[3]), splitted[4], splitted[5] ))
+                hely = Hely(splitted[4], splitted[5], splitted[6], splitted[7])
+                adatok.append(Esemeny(splitted[0], splitted[1], splitted[2], self.datum_string_to_datetime(splitted[3]), hely, splitted[8] ))
             file.close()
             self.osszes_esemeny = adatok
     def datum_string_to_datetime(self, datum_string):

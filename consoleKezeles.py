@@ -123,7 +123,7 @@ def foik_export_valasztas(esemenyek):
 
 def esemeny_szerkeztes_valsztasok(esemenyek, valasztott_index):
     input_lista = ["1", "2", "3", "4"]
-
+    line_separator()
     valasz = input("Esemény  név szerkeztése (adja meg az 1-est)\n"+
             "Esemény  dátum szerkeztése (adja meg az 2-est)\n"+
             "Esemény  hely szerkeztése (adja meg az 3-ast)\n"+
@@ -136,14 +136,44 @@ def esemeny_szerkeztes_valsztasok(esemenyek, valasztott_index):
                     "Esemény  hely szerkeztése (adja meg az 3-ast)\n"+
                     "Esemény  megjegyzés szerkeztése (adja meg az 4-est) ")
     
+    
     if(valasz == "1"):
         esemenyek.fiok_esemenyei[valasztott_index].setNev(esemenyek.inputNev())
+        sendConfirmMessage("Sikeresen megváltoztatta!")
     elif(valasz == "2"):
         esemenyek.fiok_esemenyei[valasztott_index].setDatum(esemenyek.inputDatum())
+        sendConfirmMessage("Sikeresen megváltoztatta!")
     elif(valasz == "3"):
-        esemenyek.fiok_esemenyei[valasztott_index].setHely(esemenyek.inputHely())
+        esemeny_szerkeztes_valsztasok_hely(esemenyek, valasztott_index)
     elif(valasz == "4"):
         esemenyek.fiok_esemenyei[valasztott_index].setMegjegyzes(esemenyek.inputMegjegyzes())
+        sendConfirmMessage("Sikeresen megváltoztatta!")
+
+def esemeny_szerkeztes_valsztasok_hely(esemenyek, valasztott_index):
+    line_separator()
+    input_lista = ["1", "2", "3", "4"]
+
+    valasz = input("Hely iranyitó szám szerkeztése (adja meg az 1-est)\n"+
+                    "Város szerkeztése (adja meg az 2-est)\n"+
+                    "Utca  szerkeztése (adja meg az 3-ast)\n"+
+                    "Ház szám   szerkeztése (adja meg az 4-est) ")
+    
+    while valasz not in input_lista:
+        sendErrorMessage("Rossz számot adott meg")
+        valasz = input("Hely iranyitó szám szerkeztése (adja meg az 1-est)\n"+
+                        "Város szerkeztése (adja meg az 2-est)\n"+
+                        "Utca szerkeztése (adja meg az 3-ast)\n"+
+                        "Ház szám szerkeztése (adja meg az 4-est) ")
+        
+    if(valasz == "1"):
+        esemenyek.fiok_esemenyei[valasztott_index].getHely().setIranyitoSzam(esemenyek.inputHelyISzam())
+    elif(valasz == "2"):
+        esemenyek.fiok_esemenyei[valasztott_index].getHely().setVaros(esemenyek.inputHelyVaros())
+    elif(valasz == "3"):
+        esemenyek.fiok_esemenyei[valasztott_index].getHely().setUtca(esemenyek.inputHelyUtca())
+    elif(valasz == "4"):
+        esemenyek.fiok_esemenyei[valasztott_index].getHely().setHazSzam(esemenyek.inputHelyHazSzam())
+    sendConfirmMessage("Sikeresen megváltoztatta!")
 
 def esemeny_megjelenites_valasztasok(esemenyek):
     valasz = input(f"Idő szerinti sorrendben megnézni (adja meg az 1-est)\nFelvett sorrendben megnézni (adja meg az 2-est)\nNév alapján keresés (adja meg az 3-ast)")

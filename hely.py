@@ -1,10 +1,10 @@
 
 class Hely:
-    def __init__(self, iranyitoSzam, varos, hazSzam, utca ):
+    def __init__(self, iranyitoSzam = "", varos = "", utca = "" , hazSzam = ""):
         self.setIranyitoSzam(iranyitoSzam)
-        self.SetVaros(varos)
+        self.setVaros(varos)
         self.setUtca(utca)
-        self.SetHazSzam(hazSzam)
+        self.setHazSzam(hazSzam)
 
     def __str__(self):
         return f"{self.getIranyitoSzam()} {self.getVaros()} {self.getUtca()} {self.getHazSzam()}"
@@ -24,16 +24,16 @@ class Hely:
     def setIranyitoSzam(self, iranyitoSzam):
         self.iranyitoSzam = iranyitoSzam
 
-    def SetVaros(self, varos):
+    def setVaros(self, varos):
         self.varos = varos
         
-    def SetUtca(self, utca):
+    def setUtca(self, utca):
         self.utca = utca
 
-    def SetHazSzam(self, hazSzam):
+    def setHazSzam(self, hazSzam):
         self.hazSzam = hazSzam
 
 
     def exportView(self):
-        return  f"{self.iranyitoSzam};{self.varos};{self.utca};{self.hazSzam}\n"
+        return  f"{self.iranyitoSzam};{self.varos};{self.utca};{self.hazSzam}"
 

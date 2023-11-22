@@ -1,6 +1,7 @@
-1;1;Legjobb esemeny;2018-11-18 19:15:30;Otthon;Megjegyzés
-1;2;Legjobb esemeny;2028-11-18 19:15:30;Otthon;Megjegyzés
-6;3;Legjobb esemeny;2021-11-18 19:15:30;Otthon;Megjegyzés
-2;1;Legjobb esemeny;2018-10-18 19:15:30;Otthon;Megjegyzés
-3;1;Legjobb esemeny;2017-11-18 19:15:30;Otthon;Megjegyzés
-4;5;Legjobb esemeny;2023-11-17 19:15:30;Otthon;Megjegyzés
+1;1;Legjobb esemeny;2018-11-18 19:15:30;1001;Otthon;utca;20;Megjegyzés
+1;2;Legjobb esemeny;2028-11-18 19:15:30;1001;Otthon;utca;20;Megjegyzés
+6;3;Legjobb esemeny;2021-11-18 19:15:30;1001;Otthon;utca;20;Megjegyzés
+2;1;Legjobb esemeny;2018-10-18 19:15:30;1001;Otthon;utca;20;Megjegyzés
+3;1;Legjobb esemeny;2017-11-18 19:15:30;1001;Yes új;utca;20;Megjegyzés
+4;5;Legjobb esemeny;2023-11-17 19:15:30;1001;Otthon;utca;20;Megjegyzés
+456b07a6-29b1-4ac1-8034-e4ff6dd2177a;1;rhtgb;2018-12-17 10:10:10;3120;Komló;Én;20/A;

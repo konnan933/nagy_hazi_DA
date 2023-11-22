@@ -1,4 +1,3 @@
-import datetime
 class Esemeny:
     def __init__(self, id, felhasznaloId, nev, datum, hely, megjegyzes=""):
         self.id = id
@@ -11,7 +10,7 @@ class Esemeny:
 
 
     def __str__(self):
-        return f"ID: {self.getId()} felhasznaló ID: {self.getFelhasznaloId()}, név: {self.getNev()}, dátum: {self.getDatum()}, hely: {self.getHely()}, megjegyzés: {self.getMegjegyzes()}"
+        return f"ID: {self.getId()} felhasznaló ID: {self.getFelhasznaloId()}, név: {self.getNev()}, dátum: {self.getDatum()}, hely: {str(self.getHely())}, megjegyzés: {self.getMegjegyzes()}"
     
     def getFelhasznaloId(self):
         return self.felhasznaloId
@@ -26,7 +25,7 @@ class Esemeny:
         return str(self.datum)
     
     def getHely(self):
-        return self.hely 
+        return self.hely
     
     def getMegjegyzes(self):
         return self.megjegyzes 
@@ -44,4 +43,4 @@ class Esemeny:
         self.megjegyzes = megjegyzes
 
     def exportView(self):
-        return  f"{self.getId()};{self.getFelhasznaloId()};{self.getNev()};{self.getDatum()};{self.getHely()};{self.getMegjegyzes()}\n"
+        return  f"{self.getId()};{self.getFelhasznaloId()};{self.getNev()};{self.getDatum()};{self.getHely().exportView()};{self.getMegjegyzes()}\n"
