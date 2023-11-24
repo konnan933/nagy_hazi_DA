@@ -1,4 +1,4 @@
-1;1;Legjobb esemeny;2018-11-18 19:15:30;1001;Otthon;utca;20;Megjegyzés
+1;1;Legjobb esemeny;2021-11-18 19:15:30;1001;Otthon;utca;20;Megjegyzés
 1;2;Legjobb esemeny;2028-11-18 19:15:30;1001;Otthon;utca;20;Megjegyzés
 6;3;Legjobb esemeny;2021-11-18 19:15:30;1001;Otthon;utca;20;Megjegyzés
 2;1;Legjobb esemeny;2018-10-18 19:15:30;1001;Otthon;utca;20;Megjegyzés

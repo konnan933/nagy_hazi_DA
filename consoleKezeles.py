@@ -36,8 +36,11 @@ def sendConfirmMessage(text):
     print("")
 
 def ciklus_kiiratas(esemenyek):
-    for esemeny in esemenyek:
-        print(str(esemeny))
+    if len(esemenyek) == 0:
+        sendErrorMessage("Nincs ilyen esemeny!")
+    else:
+        for esemeny in esemenyek:
+            print(str(esemeny))
 
 def bejelntkezes_folyamat(fiokok):
     line_separator()
@@ -180,11 +183,23 @@ def esemeny_szerkeztes_valsztasok_hely(esemenyek, valasztott_index):
     sendConfirmMessage("Sikeresen megváltoztatta!")
 
 def esemeny_megjelenites_valasztasok(esemenyek):
-    valasz = input(f"Idő szerinti sorrendben megnézni (adja meg az 1-est)\nFelvett sorrendben megnézni (adja meg az 2-est)\nNév alapján keresés (adja meg az 3-ast)")
+    input_lista = ["1", "2", "3", "4", "5", "6"]
 
-    while valasz != "1" and valasz != "2" and valasz != "3":
+    valasz = input(f"Idő szerinti sorrendben megnézni (adja meg az 1-est)\n"+
+                   "Felvett sorrendben megnézni (adja meg az 2-est)\n"+
+                   "Név alapján keresés (adja meg az 3-ast)\n"+
+                   "Keresés hónap alapján (adja meg az 4-ast)\n"+
+                   "Keresés hét alapján (adja meg az 5-ast)\n"+
+                   "Keresés nap alapján (adja meg az 6-ast)")
+
+    while valasz not in input_lista:
         sendErrorMessage("Rossz számot adott meg")
-        valasz = input(f"Bejelentkezéshez  (adja meg az 1-est)\nÚj fiók lértehozásához (adja meg az 2-est)")
+        valasz = input(f"Idő szerinti sorrendben megnézni (adja meg az 1-est)\n"+
+                   "Felvett sorrendben megnézni (adja meg az 2-est)\n"+
+                   "Név alapján keresés (adja meg az 3-ast)\n"+
+                   "Keresés hónap alapján (adja meg az 4-ast)\n"+
+                   "Keresés hét alapján (adja meg az 5-ast)\n"+
+                   "Keresés nap alapján (adja meg az 6-ast)")
     line_separator()
     if(valasz == "1"):
         ciklus_kiiratas(esemenyek.sort_by_datum())
@@ -192,6 +207,14 @@ def esemeny_megjelenites_valasztasok(esemenyek):
         ciklus_kiiratas(esemenyek.fiok_esemenyei)
     elif(valasz == "3"):
         print(esemenyek.search_by_nev_fiok())
+    elif(valasz == "4"):
+        ciklus_kiiratas(esemenyek.search_by_month_fiok(input_ev(), search_by_month_input()))
+    elif(valasz == "5"):
+        ciklus_kiiratas(esemenyek.search_by_week_fiok(input_ev(), search_by_week_input()))
+    elif(valasz == "6"):
+        ev = input_ev()
+        honap = search_by_month_input()
+        ciklus_kiiratas(esemenyek.search_by_day_fiok(ev, honap, search_by_day_input(ev, honap)))
 
 def input_ev():
     while True:
@@ -200,6 +223,7 @@ def input_ev():
                 while ev < 0:                    
                     sendErrorMessage("Év nem lehet negatív!")
                     ev = int(input("Kérem adja meg a év számát:"))
+                    print(ev)
                 return ev
             except ValueError:
                 sendErrorMessage("Nem lehet karakter a év számában.")
@@ -209,10 +233,10 @@ def search_by_week_input():
 
     while True:
             try:
-                het = int(input("Kérem adja meg a hét számát:"))
-                while het in range(1, 53):                    
+                het = int(input("Kérem adja meg a hét számát (1-52): "))
+                while not het in range(1, 53):                    
                     sendErrorMessage("Egy évben 52 hét van, és nem lehet 0-nál kissebb!")
-                    het = int(input("Kérem adja meg a hét számát:"))
+                    het = int(input("Kérem adja meg a hét számát (1-52): "))
                 return het
             except ValueError:
                 sendErrorMessage("Nem lehet karakter a hét számában.")
@@ -223,8 +247,8 @@ def search_by_month_input():
     while True:
             try:
                 honap = int(input("Kérem adja meg a hónap számát:"))
-                while honap in range(1, 13):                    
-                    sendErrorMessage("Egy évben 52 hónap van, és nem lehet 0-nál kissebb!")
+                while not honap in range(1, 13):                    
+                    sendErrorMessage("Egy évben 12 hónap van, és nem lehet 0-nál kissebb!")
                     honap = int(input("Kérem adja meg a hónap számát:"))
                 return honap
             except ValueError:
@@ -236,8 +260,8 @@ def search_by_day_input(ev ,honap):
     while True:
             try:
                 nap = int(input("Kérem adja meg a nap számát:"))
-                while nap in range(1, max_nap_of_month+1):                    
-                    sendErrorMessage(f"1 és {max_nap_of_month} között lehet a nap!")
+                while not nap in range(1, max_nap_of_month+1):                    
+                    sendErrorMessage(f"1 és {max_nap_of_month-1} között lehet a nap!")
                     nap = int(input("Kérem adja meg a nap számát:"))
                 return nap
             except ValueError:
@@ -245,9 +269,11 @@ def search_by_day_input(ev ,honap):
                 continue   
 
 def check_if_day_valid(ev ,honap):
-    if honap == 1 or honap == 3 or honap == 5 or honap == 7 or honap == 8 or honap == 10 or honap == 12:
+    nap_31 = [1, 3, 5, 7, 8, 10, 12]
+    nap_30 = [4, 6, 9, 11]
+    if honap in nap_31:
         return 31
-    elif honap == 4 or honap == 6 or honap == 9 or honap == 11:
+    elif honap in nap_30:
         return 30
     elif ev % 4 == 0 and ev % 100 != 0 or ev % 400 == 0:
         return 29
