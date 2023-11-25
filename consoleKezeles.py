@@ -1,7 +1,6 @@
 import re
 import pyconio  
 import glob
-from esemenyek import Esemenyek 
 
 def sendErrorMessage(text):
     pyconio.textcolor(pyconio.BLACK)
@@ -67,15 +66,7 @@ def bejenkezes_or_add_felhasznalo(fiokok):
         line_separator()
         sendConfirmMessage("Sikeresen kilépett!")
         return None
-    
-
-
-def fiok_esmenyei(fiok_id):
-    esemenyek = Esemenyek(fiok_id)
-    if(len(esemenyek.esemeny_tomb) == 0):
-        sendImportantMessage("Még nincsen eseményed csinálj újjat!")
-        esemenyek.addEsemeny(fiok_id)
-    return esemenyek    
+     
 
 def esemeny_konzol_valasztasok():
     line_separator()

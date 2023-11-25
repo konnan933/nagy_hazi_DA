@@ -1,7 +1,4 @@
-import datetime
-import pyconio
 import consoleKezeles
-import esemeny
 from felhasznalok import Felhasznalok
 from esemenyek import Esemenyek
 
