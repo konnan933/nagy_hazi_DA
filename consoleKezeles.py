@@ -73,7 +73,7 @@ def esemeny_konzol_valasztasok():
     input_lista = ["1", "2", "3", "4", "5", "6", "9"]
     valasz = input("Eseményeim megnézése (adja meg az 1-est)\n"+
                    "Új esemény hozzá adása (adja meg az 2-est)\n"+
-                   "Esemény szerkeztése (adja meg az 3-ast)\n"+
+                   "Esemény szerkesztése (adja meg az 3-ast)\n"+
                    "Esemény törlése (adja meg az 4-est)\n"+
                    "Saját adataim exportálása (adja meg az 5-öst)\n"+
                    "Kijelentkezés (adja meg az 6-ost)\n"+
@@ -82,7 +82,7 @@ def esemeny_konzol_valasztasok():
         sendErrorMessage("Rossz számot adott meg")
         valasz = input("Eseményeim megnézése (adja meg az 1-est)\n"+
                    "Új esemény hozzá adása (adja meg az 2-est)\n"+
-                   "Esemény szerkeztése (adja meg az 3-ast)\n"+
+                   "Esemény szerkesztése (adja meg az 3-ast)\n"+
                    "Esemény törlése (adja meg az 4-est)\n"+
                    "Saját adataim exportálása (adja meg az 5-öst)\n"+
                    "Kijelentkezés (adja meg az 6-ost)\n"+
@@ -96,7 +96,7 @@ def esemeny_konzol_eldontes(valasz, esemenyek, fiok_id):
     elif(valasz == "2"):
         esemenyek.addEsemeny(fiok_id)
     elif(valasz == "3"):
-        esemeny_szerkeztes_valsztasok(esemenyek,esemenyek.show_by_index_fiok())
+        esemeny_szerkesztes_valasztasok(esemenyek,esemenyek.show_by_index_fiok())
     elif(valasz == "4"):
         esemenyek.deleteEsemeny(esemenyek.show_by_index_fiok())
     elif(valasz == "5"):
@@ -119,20 +119,20 @@ def foik_export_valasztas(esemenyek):
         sendConfirmMessage(f"Sikeres volt az adatok exportja, {fajl_nev}.txt néven fogja találni a fő mappában.")
         esemenyek.fiok_esemenyek_export(fajl_nev)
 
-def esemeny_szerkeztes_valsztasok(esemenyek, valasztott_index):
+def esemeny_szerkesztes_valasztasok(esemenyek, valasztott_index):
     input_lista = ["1", "2", "3", "4"]
     line_separator()
-    valasz = input("Esemény  név szerkeztése (adja meg az 1-est)\n"+
-            "Esemény  dátum szerkeztése (adja meg az 2-est)\n"+
-            "Esemény  hely szerkeztése (adja meg az 3-ast)\n"+
-            "Esemény  megjegyzés szerkeztése (adja meg az 4-est) ")
+    valasz = input("Esemény név szerkesztése (adja meg az 1-est)\n"+
+            "Esemény dátum szerkesztése (adja meg az 2-est)\n"+
+            "Esemény hely szerkesztése (adja meg az 3-ast)\n"+
+            "Esemény megjegyzés szerkesztése (adja meg az 4-est) ")
     
     while valasz not in input_lista:
         sendErrorMessage("Rossz számot adott meg")
-        valasz = input("Esemény  név szerkeztése (adja meg az 1-est)\n"+
-                    "Esemény  dátum szerkeztése (adja meg az 2-est)\n"+
-                    "Esemény  hely szerkeztése (adja meg az 3-ast)\n"+
-                    "Esemény  megjegyzés szerkeztése (adja meg az 4-est) ")
+        valasz = input("Esemény név szerkesztése (adja meg az 1-est)\n"+
+                    "Esemény dátum szerkesztése (adja meg az 2-est)\n"+
+                    "Esemény hely szerkesztése (adja meg az 3-ast)\n"+
+                    "Esemény megjegyzés szerkesztése (adja meg az 4-est) ")
     
     
     if(valasz == "1"):
@@ -142,26 +142,26 @@ def esemeny_szerkeztes_valsztasok(esemenyek, valasztott_index):
         esemenyek.fiok_esemenyei[valasztott_index].setDatum(esemenyek.inputDatum())
         sendConfirmMessage("Sikeresen megváltoztatta!")
     elif(valasz == "3"):
-        esemeny_szerkeztes_valsztasok_hely(esemenyek, valasztott_index)
+        esemeny_szerkesztes_valasztasok_hely(esemenyek, valasztott_index)
     elif(valasz == "4"):
         esemenyek.fiok_esemenyei[valasztott_index].setMegjegyzes(esemenyek.inputMegjegyzes())
         sendConfirmMessage("Sikeresen megváltoztatta!")
 
-def esemeny_szerkeztes_valsztasok_hely(esemenyek, valasztott_index):
+def esemeny_szerkesztes_valasztasok_hely(esemenyek, valasztott_index):
     line_separator()
     input_lista = ["1", "2", "3", "4"]
 
-    valasz = input("Hely iranyitó szám szerkeztése (adja meg az 1-est)\n"+
-                    "Város szerkeztése (adja meg az 2-est)\n"+
-                    "Utca  szerkeztése (adja meg az 3-ast)\n"+
-                    "Ház szám   szerkeztése (adja meg az 4-est) ")
+    valasz = input("Hely iranyitó szám szerkesztése (adja meg az 1-est)\n"+
+                    "Város szerkesztése (adja meg az 2-est)\n"+
+                    "Utca szerkesztése (adja meg az 3-ast)\n"+
+                    "Ház szám szerkesztése (adja meg az 4-est) ")
     
     while valasz not in input_lista:
         sendErrorMessage("Rossz számot adott meg")
-        valasz = input("Hely iranyitó szám szerkeztése (adja meg az 1-est)\n"+
-                        "Város szerkeztése (adja meg az 2-est)\n"+
-                        "Utca szerkeztése (adja meg az 3-ast)\n"+
-                        "Ház szám szerkeztése (adja meg az 4-est) ")
+        valasz = input("Hely iranyitó szám szerkesztése (adja meg az 1-est)\n"+
+                        "Város szerkesztése (adja meg az 2-est)\n"+
+                        "Utca szerkesztése (adja meg az 3-ast)\n"+
+                        "Ház szám szerkesztése (adja meg az 4-est) ")
         
     if(valasz == "1"):
         esemenyek.fiok_esemenyei[valasztott_index].getHely().setIranyitoSzam(esemenyek.inputHelyISzam())
@@ -179,18 +179,18 @@ def esemeny_megjelenites_valasztasok(esemenyek):
     valasz = input(f"Idő szerinti sorrendben megnézni (adja meg az 1-est)\n"+
                    "Felvett sorrendben megnézni (adja meg az 2-est)\n"+
                    "Név alapján keresés (adja meg az 3-ast)\n"+
-                   "Keresés hónap alapján (adja meg az 4-ast)\n"+
-                   "Keresés hét alapján (adja meg az 5-ast)\n"+
-                   "Keresés nap alapján (adja meg az 6-ast)")
+                   "Keresés hónap alapján (adja meg az 4-est)\n"+
+                   "Keresés hét alapján (adja meg az 5-öst)\n"+
+                   "Keresés nap alapján (adja meg az 6-ost)")
 
     while valasz not in input_lista:
         sendErrorMessage("Rossz számot adott meg")
         valasz = input(f"Idő szerinti sorrendben megnézni (adja meg az 1-est)\n"+
                    "Felvett sorrendben megnézni (adja meg az 2-est)\n"+
                    "Név alapján keresés (adja meg az 3-ast)\n"+
-                   "Keresés hónap alapján (adja meg az 4-ast)\n"+
-                   "Keresés hét alapján (adja meg az 5-ast)\n"+
-                   "Keresés nap alapján (adja meg az 6-ast)")
+                   "Keresés hónap alapján (adja meg az 4-est)\n"+
+                   "Keresés hét alapján (adja meg az 5-öst)\n"+
+                   "Keresés nap alapján (adja meg az 6-ost)")
     line_separator()
     if(valasz == "1"):
         ciklus_kiiratas(esemenyek.sort_by_datum())

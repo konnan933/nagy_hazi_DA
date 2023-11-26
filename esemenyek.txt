@@ -1,7 +1,4 @@
-1;1;Legjobb esemeny;2021-11-18 19:15:30;1001;Otthon;utca;20;Megjegyzés
-1;2;Legjobb esemeny;2028-11-18 19:15:30;1001;Otthon;utca;20;Megjegyzés
-6;3;Legjobb esemeny;2021-11-18 19:15:30;1001;Otthon;utca;20;Megjegyzés
-2;1;Legjobb esemeny;2018-10-18 19:15:30;1001;Otthon;utca;20;Megjegyzés
-3;1;Legjobb esemeny;2017-11-18 19:15:30;1001;Yes új;utca;20;Megjegyzés
-4;5;Legjobb esemeny;2023-11-17 19:15:30;1001;Otthon;utca;20;Megjegyzés
-456b07a6-29b1-4ac1-8034-e4ff6dd2177a;1;rhtgb;2018-12-17 10:10:10;3120;Komló;Én;20/A;
+1;1;Nagy házi leadás;2023-11-26 23:59:59;1084;Otthon;utca;20/A;Ne felejtsed el
+2;1;Pihenés leadás után;2023-11-27 13:30:30;1084;Otthon;utca;20/A;Pihenj egy nagyott
+3;1;5. kis zh;2023-11-27 10:15:00;1091;BME E épület;utca;4. emelet;Reméljük jó lesz
+4;1;Bemutatás;2023-11-29 14:15:30;1091;BME;utca;50/B;Biztos jó lesz!
